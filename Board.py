@@ -6,9 +6,8 @@ global PrintBoard
 global Board
 
 Board = []
-Board_Height = 6 
-Board_Length = 10
-## Should be an odd number
+Board_Height = 8   ##  +2 for border 
+Board_Length = 12  ##  +2 for border
 PrintBoard = ""
 
 ## Lower ==> Higher

@@ -14,12 +14,18 @@ def __init__():
     CounterY = 0
     CounterX = (Board_Length - 1) // 2
 
+    global GhostX
+    global GhostY
+    GhostX = CounterX
+    GhostY = Board_Height - 1
+
     global Counter
     global CurrentPlayer
     Counter = "X"
     CurrentPlayer = 1
 
     UpdateBoard(CounterY, CounterX, Counter)
+    GenerateGhost()
     GetPrintBoard()
 
 def ChangePlayer():
@@ -37,11 +43,10 @@ def ChangePlayer():
         Counter = "X"
 
     CounterY = 0
-    CounterX = (Board_Length - 1) // 2
+    CounterX = (Board_Length - 1) // 2    
 
     UpdateBoard(CounterY, CounterX, Counter)
-    GetPrintBoard()
-
+    
 def MoveRight():
     global CounterX
     if CounterX + 1 == Board_Length - 1:
@@ -50,7 +55,7 @@ def MoveRight():
         CounterX += 1
         UpdateBoard(CounterY, CounterX, Counter)
         UpdateBoard(CounterY, CounterX - 1, "-")
-        GetPrintBoard()
+        GenerateGhost()
 
 def MoveLeft():
     global CounterX
@@ -60,24 +65,45 @@ def MoveLeft():
         CounterX -= 1
         UpdateBoard(CounterY, CounterX, Counter)
         UpdateBoard(CounterY, CounterX + 1, "-")
-        GetPrintBoard()
+        GenerateGhost()
+
+def GenerateGhost():
+    global Board
+    global CounterX
+    global CounterY
+    global Counter
+    global GhostX
+    global GhostY
+
+    UpdateBoard(GhostY, GhostX, " ")
+    
+    for i in range(Board_Height):
+        if Board[i][CounterX] == " ":
+            if Board[i + 1][CounterX] != " ":
+                GhostY = i
+                GhostX = CounterX
+
+                UpdateBoard(GhostY, GhostX, Counter)
+                break
 
 def PlaceCounter():
     global Board
     global CounterX
     global CounterY
     global Counter
+    global GhostX
+    global GhostY
 
+    UpdateBoard(CounterY, CounterX, "-")
+    ChangePlayer()
+
+    GhostX = (Board_Length - 1) // 2
     for i in range(Board_Height):
         if Board[i][CounterX] == " ":
             if Board[i + 1][CounterX] != " ":
-                FreeSpace = i
+                GhostY = i
 
-                UpdateBoard(CounterY, CounterX, "-")
-                UpdateBoard(FreeSpace, CounterX, Counter)
-                GetPrintBoard()
-                ChangePlayer()
-                break
+    GenerateGhost()
             
 def Main():
     global KeyStroke
@@ -92,12 +118,18 @@ def Main():
         if KeyStroke == b"a":
             MoveLeft()
             KeyStroke = ""
+            GetPrintBoard()
+            
         elif KeyStroke == b"d":
             MoveRight()
             KeyStroke = ""
+            GetPrintBoard()
+            
         elif KeyStroke == b" ":
             PlaceCounter()
             KeyStroke = ""
+            GetPrintBoard()
+        
 
 if __name__ == "__main__":
     Main()
