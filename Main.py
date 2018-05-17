@@ -4,23 +4,19 @@ import os
 from Board import *
 
 def __init__():
-    global KeyStroke
-    global Game
+    global KeyStroke, Game
     KeyStroke = ""
     Game = True
 
-    global CounterY
-    global CounterX
+    global CounterY, CounterX
     CounterY = 0
     CounterX = (Board_Length - 1) // 2
 
-    global GhostX
-    global GhostY
+    global GhostX, GhostY
     GhostX = CounterX
     GhostY = Board_Height - 1
 
-    global Counter
-    global CurrentPlayer
+    global Counter, CurrentPlayer
     Counter = "X"
     CurrentPlayer = 1
 
@@ -29,11 +25,7 @@ def __init__():
     GetPrintBoard()
 
 def ChangePlayer():
-    global CurrentPlayer
-    global Counter
-    global CounterY
-    global CounterX
-
+    global CurrentPlayer, CounterX, CounterY, Counter
     if CurrentPlayer == 1:
         CurrentPlayer = 2
         Counter = "O"
@@ -68,13 +60,7 @@ def MoveLeft():
         GenerateGhost()
 
 def GenerateGhost():
-    global Board
-    global CounterX
-    global CounterY
-    global Counter
-    global GhostX
-    global GhostY
-
+    global GhostY, GhostX
     UpdateBoard(GhostY, GhostX, " ")
     
     for i in range(Board_Height):
@@ -87,13 +73,7 @@ def GenerateGhost():
                 break
 
 def PlaceCounter():
-    global Board
-    global CounterX
-    global CounterY
-    global Counter
-    global GhostX
-    global GhostY
-
+    global CounterX, CounterY, Board, GhostX, GhostY
     UpdateBoard(CounterY, CounterX, "-")
     ChangePlayer()
 
