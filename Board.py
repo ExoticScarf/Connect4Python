@@ -6,7 +6,7 @@ global PrintBoard
 global Board
 
 Board = []
-Board_Height = 8   ##  +2 for border 
+Board_Height = 9   ##  +2 for border 
 Board_Length = 12  ##  +2 for border
 PrintBoard = ""
 
@@ -16,30 +16,29 @@ PrintBoard = ""
 ##   \/
 ## Higher
 
-def MakeBoard(): ## Do not use more than once
-    
-    for y in range(Board_Height) : ## Creates dictionary ## List of lists
+def MakeBoard(): ## Do not use more than once 
+    for y in range(Board_Height): ## Creates dictionary ## List of lists
         Board.append([])           ## Will be y coord
 
-        for x in range(Board_Length) : ## x coord
+        for x in range(Board_Length): ## x coord
 
-            if x == 0 and y == 0 :           ## checks for position and
+            if x == 0 and y == 0:           ## checks for position and
                 Board[y].append("+")         ## sets value for board
-            elif x == Board_Length - 1 and y == 0 :
+            elif x == Board_Length - 1 and y == 0:
                 Board[y].append("+")
-            elif x == 0 and y == Board_Height - 1 :
+            elif x == 0 and y == Board_Height - 1:
                 Board[y].append("+")
-            elif x == Board_Length - 1 and y == Board_Height - 1 :
+            elif x == Board_Length - 1 and y == Board_Height - 1:
                 Board[y].append("+")
 
-            elif x == 0 :
+            elif x == 0:
                 Board[y].append("|")
-            elif x == Board_Length - 1 :
+            elif x == Board_Length - 1:
                 Board[y].append("|")
 
-            elif y == 0 :
+            elif y == 0:
                 Board[y].append("-")
-            elif y == Board_Height - 1 :
+            elif y == Board_Height - 1:
                 Board[y].append("-")
             
             else:
