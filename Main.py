@@ -20,6 +20,7 @@ def __init__():
     Counter = "X"
     CurrentPlayer = 1
 
+    MakeBoard()
     UpdateBoard(CounterY, CounterX, Counter)
     GenerateGhost()
     GetPrintBoard()
@@ -72,9 +73,107 @@ def GenerateGhost():
                 UpdateBoard(GhostY, GhostX, Counter)
                 break
 
+def CheckWinState():  ##  MAKE MORE EFFICIENT LATER
+    global GhostX, GhostY, Counter, Board, Game
+    Win = 0
+
+    for i in range(1):
+        for x in range(4):
+            if Board[GhostY][GhostX + x] != Counter:
+                Win = 0
+                break
+            else:
+                Win += 1
+
+        if Win == 4:
+            Win = True
+            break
+
+        for x in range(4):
+            if Board[GhostY][GhostX - x] != Counter:
+                Win = 0
+                break
+            else:
+                Win += 1
+
+        if Win == 4:
+            Win = True
+            break
+
+        for x in range(4):
+            if Board[GhostY + x][GhostX] != Counter:
+                Win = 0
+                break
+            else:
+                Win += 1
+
+        if Win == 4:
+            Win = True
+            break
+
+        for x in range(4):
+            if Board[GhostY - x][GhostX] != Counter:
+                Win = 0
+                break
+            else:
+                Win += 1
+
+        if Win == 4:
+            Win = True
+            break
+
+        for x in range(4):
+            if Board[GhostY + x][GhostX + x] != Counter:
+                Win = 0
+                break
+            else:
+                Win += 1
+
+        if Win == 4:
+            Win = True
+            break
+
+        for x in range(4):
+            if Board[GhostY + x][GhostX - x] != Counter:
+                Win = 0
+                break
+            else:
+                Win += 1
+
+        if Win == 4:
+            Win = True
+            break
+
+        for x in range(4):
+            if Board[GhostY - x][GhostX - x] != Counter:
+                Win = 0
+                break
+            else:
+                Win += 1
+
+        if Win == 4:
+            Win = True
+            break
+
+        for x in range(4):
+            if Board[GhostY - x][GhostX + x] != Counter:
+                Win = 0
+                break
+            else:
+                Win += 1
+
+        if Win == 4:
+            Win = True
+            break
+                
+    if Win:
+        Game = False
+        ## End
+                
 def PlaceCounter():
     global CounterX, CounterY, Board, GhostX, GhostY
     UpdateBoard(CounterY, CounterX, "-")
+    CheckWinState()
     ChangePlayer()
 
     GhostX = (Board_Length - 1) // 2
@@ -86,10 +185,12 @@ def PlaceCounter():
     GenerateGhost()
             
 def Main():
-    global KeyStroke
-    MakeBoard()
+    global KeyStroke, Board
+    
     __init__()
-
+    print(Board)
+    input()
+    
     while Game:
 
         if msvcrt.kbhit():
@@ -109,9 +210,23 @@ def Main():
             PlaceCounter()
             KeyStroke = ""
             GetPrintBoard()
-        
 
-if __name__ == "__main__":
+def GameStart():
+    global CurrentPlayer, Board
     Main()
 
-time.sleep(1000)
+    if CurrentPlayer == 1:
+        CurrentPlayer = 2
+    else:
+        CurrentPlayer = 1
+
+    print("Game Over, Player", CurrentPlayer, "loses")
+
+    print("\nDo you wish to play again?")
+    Again = input().lower()
+    if Again.startswith("y"):
+        #Board = []
+        GameStart()
+
+if __name__ == "__main__":
+    GameStart()

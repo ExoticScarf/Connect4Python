@@ -16,7 +16,11 @@ PrintBoard = ""
 ##   \/
 ## Higher
 
-def MakeBoard(): ## Do not use more than once 
+def MakeBoard():  ##  WTF IS WRONG WITH THIS FUNCTION??
+    global Board  ##  WHY YOU ONLY WORK ONCE??
+    Board = []    ##  WHY DOES A RESET STOP YOU FROM WORKING AT ALL??
+
+    print(Board_Height, Board_Length)
     for y in range(Board_Height): ## Creates dictionary ## List of lists
         Board.append([])           ## Will be y coord
 
