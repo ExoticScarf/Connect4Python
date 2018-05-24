@@ -186,8 +186,7 @@ def PlaceCounter():
             
 def Main():
     global KeyStroke, Board
-    __init__()
-
+    __init__()    
     while Game:
 
         if msvcrt.kbhit():
@@ -222,12 +221,14 @@ def GameStart():
     print("\nDo you wish to play again?")
     Again = input().lower()
     if Again.startswith("y"):
+
+        GameStart()
         Board = BoardReset()
         Board = MakeBoard()
         GameStart()
 
     else:
         exit()
-
+        
 if __name__ == "__main__":
     GameStart()
