@@ -3,7 +3,6 @@ import random
 import time
 
 global PrintBoard
-global Board
 
 Board = []
 Board_Height = 9   ##  +2 for border 
@@ -16,11 +15,12 @@ PrintBoard = ""
 ##   \/
 ## Higher
 
-def MakeBoard():  ##  WTF IS WRONG WITH THIS FUNCTION??
-    global Board  ##  WHY YOU ONLY WORK ONCE??
-    Board = []    ##  WHY DOES A RESET STOP YOU FROM WORKING AT ALL??
+def BoardReset(): ## Idek
+    global Board
+    Board = []
+    return Board
 
-    print(Board_Height, Board_Length)
+def MakeBoard():    
     for y in range(Board_Height): ## Creates dictionary ## List of lists
         Board.append([])           ## Will be y coord
 
@@ -48,12 +48,12 @@ def MakeBoard():  ##  WTF IS WRONG WITH THIS FUNCTION??
             else:
                 Board[y].append(" ")
 
+    return Board
+
 def UpdateBoard(Update_y, Update_x, Update): ## Updates board with new value
     if Update_y != Board_Height - 1:
         if Update_x != 0 and Update_x != Board_Length - 1:
             Board[Update_y][Update_x] = Update
-
-    
 
 ##  Turns Board into a multiline string
 def GetPrintBoard():
@@ -66,7 +66,6 @@ def GetPrintBoard():
 
         if y < Board_Height - 1:
             PrintBoard += "\n"
-
 
     os.system("cls")
     print(PrintBoard)

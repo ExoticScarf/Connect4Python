@@ -20,7 +20,7 @@ def __init__():
     Counter = "X"
     CurrentPlayer = 1
 
-    MakeBoard()
+    Board = MakeBoard()    
     UpdateBoard(CounterY, CounterX, Counter)
     GenerateGhost()
     GetPrintBoard()
@@ -186,11 +186,7 @@ def PlaceCounter():
             
 def Main():
     global KeyStroke, Board
-    
-    __init__()
-    print(Board)
-    input()
-    
+    __init__()    
     while Game:
 
         if msvcrt.kbhit():
@@ -225,8 +221,14 @@ def GameStart():
     print("\nDo you wish to play again?")
     Again = input().lower()
     if Again.startswith("y"):
-        #Board = []
+
+        GameStart()
+        Board = BoardReset()
+        Board = MakeBoard()
         GameStart()
 
+    else:
+        exit()
+        
 if __name__ == "__main__":
     GameStart()
